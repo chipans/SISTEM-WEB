@@ -1,0 +1,20 @@
+<div class="flex min-h-screen w-full flex-col bg-gradient-to-br from-blue-50 via-white to-slate-100">
+  <header class="flex h-16 w-full shrink-0 items-center justify-between gap-3 bg-gradient-to-r from-[#003264] to-[#2A70B9] px-4 shadow-md sm:h-20 sm:px-6">
+    <div class="min-w-0">
+      <h1 class="text-lg leading-none text-white font-semibold sm:text-xl">SISTEM</h1>
+      <h2 class="text-xs leading-none text-blue-100 truncate sm:text-sm">Plataforma de gestión</h2>
+    </div>
+    <button
+      (click)="logout()"
+      class="rounded-lg border border-white/40 px-3 py-1.5 text-sm text-white transition-colors hover:bg-white/10">
+      Cerrar sesión
+    </button>
+  </header>
+
+  <main class="flex flex-1 items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-lg sm:p-8">
+      <h2 class="text-2xl font-semibold text-secondary">Bienvenido, {{ currentUser()?.fullName }}</h2>
+      <p class="mt-2 text-sm text-slate-500">{{ currentUser()?.email }}</p>
+    </div>
+  </main>
+</div>

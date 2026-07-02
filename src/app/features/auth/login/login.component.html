@@ -1,0 +1,71 @@
+<div class="flex min-h-screen w-full flex-col bg-gradient-to-br from-blue-50 via-white to-slate-100">
+
+  <header class="flex h-16 w-full shrink-0 items-center gap-3 bg-gradient-to-r from-[#003264] to-[#2A70B9] px-4 shadow-md sm:h-20 sm:px-6">
+    <div class="min-w-0">
+      <h1 class="text-lg leading-none text-white font-semibold sm:text-xl">SISTEM</h1>
+      <h2 class="text-xs leading-none text-blue-100 truncate sm:text-sm">Plataforma de gestión</h2>
+    </div>
+  </header>
+
+  <main class="flex flex-1 items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+      <h2 class="mb-1 text-center text-2xl font-semibold text-secondary">Iniciar sesión</h2>
+      <p class="mb-6 text-center text-sm text-slate-500">Ingresa tus credenciales para continuar</p>
+
+      @if (errorMessage()) {
+        <div class="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-actions-error">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="flex flex-col gap-4">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Correo electrónico</label>
+          <input
+            type="email"
+            formControlName="email"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="correo@ejemplo.com" />
+          @if (formGroup.controls.email.invalid && formGroup.controls.email.touched) {
+            <span class="mt-1 block text-xs text-actions-error">Ingresa un correo válido.</span>
+          }
+        </div>
+
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Contraseña</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="••••••••" />
+          @if (formGroup.controls.password.invalid && formGroup.controls.password.touched) {
+            <span class="mt-1 block text-xs text-actions-error">La contraseña es requerida.</span>
+          }
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading()"
+          class="mt-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-light disabled:opacity-60">
+          {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
+        </button>
+      </form>
+
+      <div class="my-5 flex items-center gap-3">
+        <div class="h-px flex-1 bg-slate-200"></div>
+        <span class="text-xs text-slate-400">O continúa con</span>
+        <div class="h-px flex-1 bg-slate-200"></div>
+      </div>
+
+      <div class="flex justify-center">
+        <sistem-google-sign-in-button (credentialReceived)="onGoogleCredential($event)" />
+      </div>
+
+      <p class="mt-6 text-center text-sm text-slate-500">
+        ¿No tienes cuenta?
+        <a routerLink="/register" class="font-medium text-primary hover:underline">Regístrate</a>
+      </p>
+    </div>
+  </main>
+
+</div>
