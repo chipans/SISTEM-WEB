@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "dist/sistem-web/browser"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Proxy: reenvía las llamadas a /api/* hacia el backend real en Render.
+[[redirects]]
+  from = "/api/*"
+  to = "https://sistem-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# Fallback de rutas de Angular (SPA) — debe ir DESPUÉS del proxy de /api,
+# porque las reglas de netlify.toml se evalúan en orden.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
