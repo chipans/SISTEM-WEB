@@ -1,0 +1,16 @@
+@if (!isLoading()) {
+<div class="flex w-screen h-screen dark:bg-gray-800 bg-gray-50">
+  <aside [ngClass]="menuOpen ? 'translate-x-0 opacity-100 relative w-60' : '-translate-x-full opacity-0 absolute w-60'"
+    class="h-full transition-all duration-400 shrink-0 border-r-[0.5px] border-primary-900 shadow-sm">
+    <div class="flex flex-col h-full bg-gray-200 backdrop-blur-sm">
+    </div>
+  </aside>
+
+  <div class="flex flex-col w-full overflow-hidden">
+    <app-header (toggleMenu)="toggleMenu()"></app-header>
+    <main class="flex-1 w-full h-full overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+}
