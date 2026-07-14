@@ -1,14 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
-import { GoogleSignInButtonComponent } from '../../../shared/controls/google-sign-in-button/google-sign-in-button.component';
 
 @Component({
   selector: 'sistem-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, GoogleSignInButtonComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html'
 })
 export default class LoginComponent {
@@ -33,21 +32,18 @@ export default class LoginComponent {
     this.loading.set(true);
     this.errorMessage.set(null);
 
-    this.#authService.login$(this.formGroup.getRawValue()).subscribe((response) =>
-      this.#handleAuthResult(response.isSuccess, response.errors, 'No se pudo iniciar sesión.'));
-  }
-
-  onGoogleCredential(idToken: string): void {
-    this.loading.set(true);
-    this.errorMessage.set(null);
-
-    this.#authService.loginWithGoogle$({ idToken }).subscribe((response) =>
-      this.#handleAuthResult(response.isSuccess, response.errors, 'No se pudo iniciar sesión con Google.'));
+    this.#authService
+      .login$(this.formGroup.getRawValue())
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (response) =>
+          this.#handleAuthResult(response.isSuccess, response.errors, 'No se pudo iniciar sesión.'),
+        error: () =>
+          this.errorMessage.set('Ocurrió un error de conexión. Intenta nuevamente.')
+      });
   }
 
   #handleAuthResult(isSuccess: boolean, errors: string[] | undefined, fallbackMessage: string): void {
-    this.loading.set(false);
-
     if (isSuccess) {
       this.#router.navigate(['/dashboard']);
       return;
