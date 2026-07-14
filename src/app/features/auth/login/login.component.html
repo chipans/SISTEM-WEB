@@ -1,16 +1,22 @@
-<div class="flex min-h-screen w-full flex-col bg-gradient-to-br from-blue-50 via-white to-slate-100">
+<div class="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#000C1A] via-[#003264] to-[#0A4A8A] px-4 py-8">
+  <img
+    src="/assets/img/logo-UAB.png"
+    alt=""
+    class="pointer-events-none absolute left-1/2 top-1/2 w-[1100px] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-45 opacity-10 mix-blend-screen select-none sm:w-[1400px] lg:w-[1400px]" />
 
-  <header class="flex h-16 w-full shrink-0 items-center gap-3 bg-gradient-to-r from-[#003264] to-[#2A70B9] px-4 shadow-md sm:h-20 sm:px-6">
-    <div class="min-w-0">
-      <h1 class="text-lg leading-none text-white font-semibold sm:text-xl">SISTEM</h1>
-      <h2 class="text-xs leading-none text-blue-100 truncate sm:text-sm">Plataforma de gestión</h2>
+  <div class="relative z-10 flex w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+    <div
+      class="relative hidden w-2/5 flex-col justify-end bg-cover bg-center p-6 md:flex"
+      style="background-image: url('/assets/img/login-foto.jpeg');">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#001F3F]/90 via-[#001F3F]/40 to-[#001F3F]/10"></div>
+      <div class="relative z-10 text-white">
+        <h1 class="text-xl font-bold leading-tight">Universidad Adventista de Bolivia</h1>
+        <p class="mt-2 text-xs text-blue-100">Plataforma de consolidación almacen.</p>
+      </div>
     </div>
-  </header>
-
-  <main class="flex flex-1 items-center justify-center px-4 py-8">
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg sm:p-8">
-      <h2 class="mb-1 text-center text-2xl font-semibold text-secondary">Iniciar sesión</h2>
-      <p class="mb-6 text-center text-sm text-slate-500">Ingresa tus credenciales para continuar</p>
+    <main class="flex w-full flex-col justify-center p-8 sm:p-10 md:w-3/5">
+      <h2 class="mb-1 text-center text-2xl font-semibold text-[#003264]">Iniciar sesión</h2>
+      <p class="mb-8 text-center text-sm text-slate-500">Ingresa tus credenciales para continuar</p>
 
       @if (errorMessage()) {
         <div class="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-actions-error">
@@ -18,13 +24,13 @@
         </div>
       }
 
-      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="flex flex-col gap-4">
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="flex flex-col gap-5">
         <div>
           <label class="mb-1 block text-sm font-medium text-slate-700">Correo electrónico</label>
           <input
             type="email"
             formControlName="email"
-            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264]"
             placeholder="correo@ejemplo.com" />
           @if (formGroup.controls.email.invalid && formGroup.controls.email.touched) {
             <span class="mt-1 block text-xs text-actions-error">Ingresa un correo válido.</span>
@@ -36,7 +42,7 @@
           <input
             type="password"
             formControlName="password"
-            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264]"
             placeholder="••••••••" />
           @if (formGroup.controls.password.invalid && formGroup.controls.password.touched) {
             <span class="mt-1 block text-xs text-actions-error">La contraseña es requerida.</span>
@@ -46,26 +52,10 @@
         <button
           type="submit"
           [disabled]="loading()"
-          class="mt-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-light disabled:opacity-60">
+          class="mt-4 rounded-lg bg-[#003264] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2A70B9] disabled:opacity-60">
           {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
         </button>
       </form>
-
-      <div class="my-5 flex items-center gap-3">
-        <div class="h-px flex-1 bg-slate-200"></div>
-        <span class="text-xs text-slate-400">O continúa con</span>
-        <div class="h-px flex-1 bg-slate-200"></div>
-      </div>
-
-      <div class="flex justify-center">
-        <sistem-google-sign-in-button (credentialReceived)="onGoogleCredential($event)" />
-      </div>
-
-      <p class="mt-6 text-center text-sm text-slate-500">
-        ¿No tienes cuenta?
-        <a routerLink="/register" class="font-medium text-primary hover:underline">Regístrate</a>
-      </p>
-    </div>
-  </main>
-
+    </main>
+  </div>
 </div>
