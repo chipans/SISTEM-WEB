@@ -3,18 +3,11 @@ export interface LoginRequestInterface {
   password: string;
 }
 
-export interface RegisterRequestInterface {
-  email: string;
-  password: string;
-  fullName: string;
-}
-
-export interface GoogleLoginRequestInterface {
-  idToken: string;
-}
+export type UserRoleType = 'Administrador' | 'Ayudante';
 
 export interface AuthResponseInterface {
-  token: string;
+  accessToken: string;
   email: string;
-  fullName: string;
+  name: string;
+  role: UserRoleType;
 }

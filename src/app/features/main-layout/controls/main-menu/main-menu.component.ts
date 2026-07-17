@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { Feature } from '../../models/features';
+import { Feature } from '@sistem/feature/main-layout/models';
 
 @Component({
   selector: 'main-menu',
   standalone: true,
-  imports: [ HttpClientModule, SvgIconComponent],
+  imports: [HttpClientModule],
   templateUrl: './main-menu.component.html',
 
 })
