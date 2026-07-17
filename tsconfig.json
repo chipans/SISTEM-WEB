@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -23,10 +24,53 @@
       "ES2022",
       "dom"
     ],
+    "baseUrl": ".",
     "paths": {
-      "@core/*": ["./src/app/core/*"],
-      "@shared/*": ["./src/app/shared/*"],
-      "@environments/*": ["./src/environments/*"]
+      "@sistem/core/guards": [
+        "./src/app/core/guards"
+      ],
+      "@sistem/core/interceptors": [
+        "./src/app/core/interceptors"
+      ],
+      "@sistem/core/models": [
+        "./src/app/core/models"
+      ],
+      "@sistem/core/services": [
+        "./src/app/core/services"
+      ],
+      "@sistem/feature/auth/login": [
+        "./src/app/features/auth/login"
+      ],
+      "@sistem/feature/dashboard": [
+        "./src/app/features/dashboard"
+      ],
+      "@sistem/feature/main-layout/controls": [
+        "./src/app/features/main-layout/controls"
+      ],
+      "@sistem/feature/main-layout/models": [
+        "./src/app/features/main-layout/models"
+      ],
+      "@sistem/feature/main-layout/services": [
+        "./src/app/features/main-layout/services"
+      ],
+      "@sistem/feature/main-layout/views": [
+        "./src/app/features/main-layout/views"
+      ],
+      "@sistem/shared/controls/toast-notification": [
+        "./src/app/shared/controls/toast-notification"
+      ],
+      "@sistem/shared/controls": [
+        "./src/app/shared/controls"
+      ],
+      "@sistem/shared/view-file": [
+        "./src/app/shared/view-file"
+      ],
+      "@sistem/shared/services": [
+        "./src/app/shared/services"
+      ],
+      "@sistem/environments/environment": [
+        "./src/environments/environment"
+      ]
     }
   },
   "angularCompilerOptions": {

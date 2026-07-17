@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
-import { EventManager } from '@angular/platform-browser';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
