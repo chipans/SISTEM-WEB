@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@sistem/core/services';
+
 
 @Component({
   selector: 'sistem-dashboard',
@@ -12,6 +13,6 @@ export default class DashboardComponent {
   currentUser = this.#authService.currentUser;
 
   logout(): void {
-    this.#authService.logout();
+    this.#authService.logout$();
   }
 }

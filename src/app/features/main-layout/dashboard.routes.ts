@@ -15,10 +15,7 @@ export const dashboardRoutes: Routes = [
       },
       {
         path: 'inicio',
-        loadComponent: () =>
-          import('./views/main-dashboard/main-dashboard.component').then(
-            (m) => m.MainDashboardComponent
-          ),
+        loadComponent: () => import('./views/main-dashboard/main-dashboard.component').then((m) => m.MainDashboardComponent),
       },
     ],
   },

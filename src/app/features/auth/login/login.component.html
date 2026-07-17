@@ -1,58 +1,76 @@
-<div class="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#000C1A] via-[#003264] to-[#0A4A8A] px-4 py-8">
-  <img
-    src="/assets/img/logo-UAB.png"
-    alt=""
-    class="pointer-events-none absolute left-1/2 top-1/2 w-[1100px] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-45 opacity-10 mix-blend-screen select-none sm:w-[1400px] lg:w-[1400px]" />
+<div
+  class="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#000C1A] via-[#003264] to-[#0A4A8A] px-4 py-6 sm:py-8">
+  <img src="/assets/img/logo-UAB.png" alt=""
+    class="pointer-events-none absolute left-1/2 top-1/2 w-[700px] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-45 opacity-10 mix-blend-screen select-none sm:w-[1100px] lg:w-[1400px]" />
 
-  <div class="relative z-10 flex w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+  <div
+    class="relative z-10 flex w-full max-w-xs flex-col overflow-hidden rounded-2xl bg-white shadow-2xl xs:max-w-sm sm:max-w-md md:max-w-2xl md:flex-row">
     <div
-      class="relative hidden w-2/5 flex-col justify-end bg-cover bg-center p-6 md:flex"
-      style="background-image: url('/assets/img/login-foto.jpeg');">
+      class="relative flex h-32 w-full flex-col justify-end bg-cover bg-center bg-no-repeat p-4 sm:h-36 sm:p-6 md:h-auto md:w-2/5"
+      style="background-image: url('/assets/img/login-foto.jpeg'); background-position: center center;">
       <div class="absolute inset-0 bg-gradient-to-t from-[#001F3F]/90 via-[#001F3F]/40 to-[#001F3F]/10"></div>
       <div class="relative z-10 text-white">
-        <h1 class="text-xl font-bold leading-tight">Universidad Adventista de Bolivia</h1>
-        <p class="mt-2 text-xs text-blue-100">Plataforma de consolidación almacen.</p>
+        <h1 class="text-sm font-bold leading-tight sm:text-lg md:text-xl">Universidad Adventista de Bolivia</h1>
+        <p class="mt-1 hidden text-xs text-blue-100 sm:block">Plataforma de consolidación almacen.</p>
       </div>
     </div>
-    <main class="flex w-full flex-col justify-center p-8 sm:p-10 md:w-3/5">
-      <h2 class="mb-1 text-center text-2xl font-semibold text-[#003264]">Iniciar sesión</h2>
-      <p class="mb-8 text-center text-sm text-slate-500">Ingresa tus credenciales para continuar</p>
+    <main class="flex w-full flex-col justify-center p-6 sm:p-8 md:w-3/5 md:p-10">
+      <h2 class="mb-1 text-center text-xl font-semibold text-[#003264] sm:text-2xl">Iniciar sesión</h2>
+      <p class="mb-5 text-center text-xs text-slate-500 sm:mb-6 sm:text-sm">Ingresa tus credenciales para continuar</p>
 
       @if (errorMessage()) {
-        <div class="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-actions-error">
-          {{ errorMessage() }}
-        </div>
+      <div class="mb-4 rounded-lg bg-red-50 px-3 py-2 text-xs text-actions-error sm:px-4 sm:text-sm">
+        {{ errorMessage() }}
+      </div>
       }
 
-      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="flex flex-col gap-5">
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="flex flex-col gap-4 sm:gap-5">
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700">Correo electrónico</label>
-          <input
-            type="email"
-            formControlName="email"
-            class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264]"
+          <label class="mb-1 block text-xs font-medium text-slate-700 sm:text-sm">Correo electrónico</label>
+          <input type="email" formControlName="email"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264] sm:py-2.5 sm:text-sm"
             placeholder="correo@ejemplo.com" />
           @if (formGroup.controls.email.invalid && formGroup.controls.email.touched) {
-            <span class="mt-1 block text-xs text-actions-error">Ingresa un correo válido.</span>
+          <span class="mt-1 block text-xs text-actions-error">Ingresa un correo válido.</span>
           }
         </div>
 
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700">Contraseña</label>
-          <input
-            type="password"
-            formControlName="password"
-            class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264]"
-            placeholder="••••••••" />
+          <label class="mb-1 block text-xs font-medium text-slate-700 sm:text-sm">Contraseña</label>
+          <div class="relative">
+            <input 
+              [type]="showPassword() ? 'text' : 'password'" 
+              formControlName="password"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-[#003264] focus:outline-none focus:ring-1 focus:ring-[#003264] sm:py-2.5 sm:text-sm"
+              placeholder="••••••••" />
+            <button 
+              type="button" 
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+              [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              @if (showPassword()) {
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              } @else {
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a18.6 18.6 0 0 1 4.22-5.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                <line x1="1" y1="1" x2="23" y2="23" />
+              </svg>
+              }
+            </button>
+          </div>
           @if (formGroup.controls.password.invalid && formGroup.controls.password.touched) {
-            <span class="mt-1 block text-xs text-actions-error">La contraseña es requerida.</span>
+          <span class="mt-1 block text-xs text-actions-error">La contraseña es requerida.</span>
           }
         </div>
 
-        <button
-          type="submit"
-          [disabled]="loading()"
-          class="mt-4 rounded-lg bg-[#003264] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2A70B9] disabled:opacity-60">
+        <button type="submit" [disabled]="loading()"
+          class="mt-3 rounded-lg bg-[#003264] px-4 py-2.5 text-xs font-medium text-white transition-colors hover:bg-[#2A70B9] disabled:opacity-60 sm:mt-4 sm:py-3 sm:text-sm">
           {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
         </button>
       </form>
