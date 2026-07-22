@@ -1,0 +1,84 @@
+
+<div
+  class="fixed z-30 flex items-center justify-center w-8 h-8 rounded-full cursor-pointer bottom-8 right-3 bg-primary lg:hidden"
+  (click)="toggleMobileMenu()">
+  <svg-icon
+    class="flex h-4 text-white cursor-pointer"
+    src="assets/icons/icon-subMenu.svg">
+  </svg-icon>
+</div>
+
+<div
+  *ngIf="!isMobileCollapsed"
+  class="fixed inset-0 z-10 bg-black opacity-10 lg:hidden"
+  (click)="toggleMobileMenu()">
+</div>
+
+<div
+  class="absolute z-30 h-full px-3 py-5 overflow-y-auto transition-all duration-150 ease-linear border-r-[1px] border-gray-200 shadow-sm bg-fondo-lightBlue lg:relative dark:bg-gray-900 dark:text-neutral"
+  [ngClass]="{
+    'w-0 p-0': isMobileCollapsed,
+    'w-64': !isMobileCollapsed && !isCollapsed,
+    'w-14': isCollapsed && !isMobileCollapsed
+  }"
+  [style.visibility]="isMobileCollapsed ? 'hidden' : 'visible'">
+  <div
+    class="flex flex-col justify-start pb-1 mb-3 border-b-2 cursor-pointer"
+    [routerLink]="[routeHome]">
+    <div
+      class="flex items-center gap-2"
+      [ngClass]="{ 'justify-center': isCollapsed }">
+      <svg-icon class="w-5 text-secondary dark:text-neutral" src="{{ MenuIcon }}"></svg-icon>
+      <h1
+        *ngIf="!isCollapsed"
+        class="text-lg select-none text-secondary font-primaryBold dark:text-neutral">
+        {{ MenuTitle }}
+      </h1>
+    </div>
+    <span *ngIf="!isCollapsed" class="text-xs select-none text-enable dark:text-neutral">
+      {{MenuDescription}}
+    </span>
+  </div>
+
+  <div class="flex flex-col">
+    <ng-container *ngFor="let menuData of MenuData(); let i = index">
+      <div class="mb-2">
+        <h1 *ngIf="!isCollapsed" class="mb-1 text-xs uppercase select-none text-enable dark:text-neutral">
+          {{ menuData.title }}
+        </h1>
+        <div class="flex flex-col gap-[2px] rounded-xl">
+          <ng-container
+            *ngFor="let menuItem of menuData.menuAssets; let j = index">
+            <a
+              class="flex items-center gap-1 py-1 pl-2 rounded-lg cursor-pointer group hover:bg-[#d5dbe6]"
+              routerLinkActive="bg-[#d5dbe6]"
+              [routerLink]="[menuItem.url]">
+              <svg-icon
+                class="w-4 md:flex text-enable group-hover:text-secondary"
+                routerLinkActive="text-secondary"
+                src="{{ menuItem.iconUrl }}">
+              </svg-icon>
+              <h1
+                *ngIf="!isCollapsed"
+                class="text-sm select-none group-hover:text-secondary group-hover:font-primaryRegular dark:text-neutral"
+                routerLinkActive="text-secondary font-primaryRegular dark:text-secondary">
+                {{ menuItem.title }}
+              </h1>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div
+    class="absolute right-0 hidden transform -translate-y-1/2 rounded-l-lg shadow-sm cursor-pointer md:w-3 md:h-24 group top-1/2 bg-primary-800 hover:bg-primary-950 lg:block"
+    (click)="toggleMenu()">
+    <div class="flex items-center justify-center h-full">
+      <svg-icon
+        class="text-white md:w-2 md:flex group-hover:text-actions-warning"
+        src="assets/icons/icon-points.svg">
+      </svg-icon>
+    </div>
+  </div>
+</div>

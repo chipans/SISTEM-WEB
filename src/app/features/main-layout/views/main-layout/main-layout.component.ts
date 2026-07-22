@@ -2,6 +2,8 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../controls/main-header/main-header.component';
 import { NgClass } from '@angular/common';
+import { PersonMenu } from '../../models/access-control/person-menu-interface';
+import MenuLayoutComponent from '../layout/menu-layout.component';
 
 
 
@@ -9,20 +11,28 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [NgClass, RouterOutlet, HeaderComponent],
+  imports: [NgClass, RouterOutlet, HeaderComponent, MenuLayoutComponent],
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent {
   isLoading = signal(false);
   menuOpen: boolean = true;
 
-  // features: SystemFeature[] = [
-  //   { title: 'Dashboard', iconUrl: 'assets/icons/icon-home.svg', url: '/dashboard' },
-  //   { title: 'Consolidar', iconUrl: 'assets/icons/icon-home.svg', url: 'consolidar '},
-  //   { title: 'Gestion $', iconUrl: 'assets/icons/icon-home.svg', url: 'gestion' },
-  //   { title: 'Ajustes', iconUrl: 'assets/icons/icon-home.svg', url: 'ajustes' },
-  //   { title: 'Usuario', iconUrl: 'assets/icons/icon-home.svg', url: 'usuario'},
-  // ];
+  menuData = signal<PersonMenu[]>([
+    // {
+    //   title: 'Almacén',
+    //   menuAssets: [
+    //     { title: 'Consolidación', iconUrl: 'assets/icons/icon-secre.svg', url: '/dashboard/consolidacion' },
+    //     { title: 'Reportes', iconUrl: 'assets/icons/icon-secre.svg', url: '/dashboard/reportes' }
+    //   ]
+    // },
+    // {
+    //   title: 'Gestión',
+    //   menuAssets: [
+    //     { title: 'Usuarios', iconUrl: 'assets/icons/icon-secre.svg', url: '/dashboard/usuarios' }
+    //   ]
+    // }
+  ]);
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
